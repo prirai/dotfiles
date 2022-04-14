@@ -1,0 +1,56 @@
+# Customized config for sway
+#
+# Read `man 5 sway` for a complete reference.
+
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+set $term alacritty
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+# set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu rofi -show drun
+set $menu wofi
+set $dash wldash
+set $emoji-sel rofimoji
+set $clipboard copyq show
+
+### Network management
+#
+set $nm networkmanager_dmenu -fn roboto -nb white -nf black
+
+exec_always autotiling
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Start the dash
+    bindsym $mod+Shift+d exec $dash
+
+    bindsym $mod+n exec $nm
+
+    bindsym $mod+c exec $clipboard
+    #exec_always --no-startup-id wlsunset -T 9000 -t 4000 -S 16:30 -s 6:30
+    exec_always --no-startup-id sworkstyle &> /tmp/sworkstyle.log
+    
+    bindsym $mod+period exec $emoji-sel
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+include /home/me/.config/sway/config.d/*.conf
