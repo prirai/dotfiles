@@ -7,4 +7,4 @@ cp -r ~/.config/fish .
 cp -r ~/.config/mako .
 cp -r ~/.config/nano .
 cp -r ~/.config/waybar .
-
+cp -r ~/.config/wofi .
