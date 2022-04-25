@@ -54,3 +54,5 @@ exec_always autotiling
     bindsym $mod+Shift+c reload
 
 include /home/me/.config/sway/config.d/*.conf
+
+exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
