@@ -4,7 +4,7 @@
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    status_command i3status
+    swaybar_command i3status
     height 30
     mode hide
     colors {

@@ -8,4 +8,3 @@ cp -r ~/.config/mako .
 cp -r ~/.config/nano .
 cp -r ~/.config/waybar .
 cp -r ~/.config/wofi .
-cp -r ~/.config/i3status .
