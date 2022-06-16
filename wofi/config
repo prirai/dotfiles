@@ -1,5 +1,6 @@
 width=800
 lines=10
-term=alacritty
+term=kitty
 prompt=Search an applicattion
 allow_images=true
+prompt=>

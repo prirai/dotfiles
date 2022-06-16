@@ -5,14 +5,14 @@ width=300
 height=110
 border-size=2
 border-color=#88c0d0
-icons=0
+icons=1
 max-icon-size=64
 ignore-timeout=1
-font=monospace 14
+font=hack 12
 anchor=top-right
 default-timeout=10000
 history=1
-border-radius=12
+border-radius=0
 max-history=15
 markup=1
 

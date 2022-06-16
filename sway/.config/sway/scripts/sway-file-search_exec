@@ -1,0 +1,5 @@
+#!/bin/bash
+
+prompt="File> " \
+header="Search a file" \
+fd --search-path ~ | fzf --header=$header --prompt="$prompt" $fzf_color | xargs -d '\n' mimeopen

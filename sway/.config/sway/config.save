@@ -1,0 +1,58 @@
+# Customized config for sway
+#
+# Read `man 5 sway` for a complete reference.
+
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+set $term alacritty
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+# set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu rofi -show drun
+set $menu sirula
+#set $dash wldash
+set $emoji-sel rofimoji
+
+
+### Network management
+#
+set $nm networkmanager_dmenu -fn roboto -nb white -nf black
+
+exec_always autotiling
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Start the dash
+    # bindsym $mod+Shift+d exec $dash
+
+    bindsym $mod+n exec $nm
+    
+    #Aexec_always --no-startup-id wlsunset -T 9000 -t 4000 -S 16:30 -s 6:30
+    exec_always --no-startup-id workstyle &> /tmp/workstyle.log
+    
+    bindsym $mod+period exec $emoji-sel
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning --background 000000 -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+include /home/me/.config/sway/config.d/*.conf
