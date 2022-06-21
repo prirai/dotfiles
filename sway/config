@@ -36,38 +36,13 @@ bindsym {
     $mod+Shift+c reload
 
     #fzfify
-    $mod+w exec     '/home/$(whoami)/.config/sway/scripts/sway-workspace-switcher'
+    $mod+Shift+w exec     '/home/$(whoami)/.config/sway/scripts/sway-workspace-switcher'
     $mod+m exec     '/home/$(whoami)/.config/sway/scripts/sway-marks-switcher'
     Alt+Tab exec     '/home/$(whoami)/.config/sway/scripts/sway-tree-switcher'
     $mod+o exec     '/home/$(whoami)/.config/sway/scripts/sway-workspace-move'
     $mod+Shift+r exec     '/home/$(whoami)/.config/sway/scripts/sway-rename'
     $mod+Shift+n exec     '/home/$(whoami)/.config/sway/scripts/sway-new-workspace'
-    $mod+space exec     '/home/$(whoami)/.config/sway/scripts/sway-file-search'
-
-    #layout stuff
-    $mod+b splith
-    $mod+v splitv
-    $mod+s layout stacking
-    $mod+t layout tabbed
-    $mod+e layout toggle split
-    #$mod+w sticky toggle
-    $mod+f fullscreen
-    $mod+Shift+space floating toggle
-    #$mod+space focus mode_toggle
-    $mod+a focus parent
-    $mod+p sticky toggle
-
-    # Move your focus around
-    $mod+Left focus left
-    $mod+Down focus down
-    $mod+Up focus up
-    $mod+Right focus right
-
-    # Move the focused window with the same, but add Shift
-    $mod+Shift+Left move left
-    $mod+Shift+Down move down
-    $mod+Shift+Up move up
-    $mod+Shift+Right move right
+    Alt+space exec     '/home/$(whoami)/.config/sway/scripts/sway-file-search'
 
     # Switch to workspace
     $mod+1 workspace number 1
@@ -93,26 +68,6 @@ bindsym {
     $mod+Shift+9 move container to workspace number 9
     $mod+Shift+0 move container to workspace number 10
 
-    # Move the currently focused window to the scratchpad
-    $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    $mod+minus scratchpad show
-
-    XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $WOBSOCK
-    XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
-    XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $WOBSOCK ) || pamixer --get-volume > $WOBSOCK
-
-    XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-    XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-
-    XF86AudioPlay exec playerctl play-pause
-    XF86AudioNext exec playerctl next
-    XF86AudioPrev exec playerctl previous
-    XF86Search exec bemenu-run
-
 }
 
 exec {
@@ -120,6 +75,7 @@ exec {
     wl-paste -t text --watch clipman store --no-persist
     mako --config /home/me/.config/mako/config
     lxqt-policykit-agent
+    #polkit-kde-agent
     eval $(gnome-keyring-daemon --start)
     playerctld daemon
 }
@@ -127,8 +83,8 @@ exec {
 exec_always {
     #--no-startup-id wlsunset -T 9000 -t 4000 -S 16:30 -s 6:30
     autotiling
-    gsettings set org.gnome.desktop.interface gtk-theme "Plata-Noir-Compact" 
-    gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+    #gsettings set org.gnome.desktop.interface gtk-theme "Plata-Noir-Compact" 
+    #gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
     "systemctl --user import-environment; systemctl --user start sway-session.target"
     gsettings set org.gnome.desktop.interface cursor-theme $my_cursor
     gsettings set org.gnome.desktop.interface cursor-size $my_cursor_size
