@@ -1,6 +1,7 @@
 width=800
-lines=10
-term=kitty
+lines=15
+location=top
+term=foot
 prompt=Search an applicattion
 allow_images=true
 prompt=>

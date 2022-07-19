@@ -1,11 +1,15 @@
-# Customized config for sway
-#
-# Read `man 5 sway` for a complete reference.
+##################################################
+#####          Config by Priyanshu           #####
+##################################################
+
+# Run pure wayland
+#xwayland disable
 
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
 set {
+    $wallpaper /home/me/Pictures/wallpapers/wallp2.png
     $mod Mod4
     $term foot
     $menu wofi -S drun
@@ -20,29 +24,48 @@ set {
 
 seat seat0 xcursor_theme $my_cursor $my_cursor_size
 
-#set $menu rofi -m $(swaymsg -t get_outputs | jq 'map(select(.active) | .focused) | index(true)') -show drun -run-command 'swaymsg exec -- {cmd}'
-
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-#set $menu rofi -show drun
-
 bindsym {
     $mod+Return exec $term
     $mod+Shift+q kill
     $mod+d exec $menu
     $mod+Shift+d exec $dash
     $mod+n exec $nm
-    $mod+c exec $clipboard
+    $mod+Alt+c exec $clipboard
     $mod+period exec $emoji-sel
     $mod+Shift+c reload
 
     #fzfify
-    $mod+Shift+w exec     '/home/$(whoami)/.config/sway/scripts/sway-workspace-switcher'
-    $mod+m exec     '/home/$(whoami)/.config/sway/scripts/sway-marks-switcher'
-    Alt+Tab exec     '/home/$(whoami)/.config/sway/scripts/sway-tree-switcher'
-    $mod+o exec     '/home/$(whoami)/.config/sway/scripts/sway-workspace-move'
-    $mod+Shift+r exec     '/home/$(whoami)/.config/sway/scripts/sway-rename'
-    $mod+Shift+n exec     '/home/$(whoami)/.config/sway/scripts/sway-new-workspace'
-    Alt+space exec     '/home/$(whoami)/.config/sway/scripts/sway-file-search'
+    #$mod+Shift+w exec     '/home/$(whoami)/.config/sway/scripts/sway-workspace-switcher'
+    #$mod+m exec     '/home/$(whoami)/.config/sway/scripts/sway-marks-switcher'
+    #Alt+Tab exec     '/home/$(whoami)/.config/sway/scripts/sway-tree-switcher'
+    #$mod+o exec     '/home/$(whoami)/.config/sway/scripts/sway-workspace-move'
+    #$mod+Shift+r exec     '/home/$(whoami)/.config/sway/scripts/sway-rename'
+    #$mod+Shift+n exec     '/home/$(whoami)/.config/sway/scripts/sway-new-workspace'
+    #Alt+space exec     '/home/$(whoami)/.config/sway/scripts/sway-file-search'
+
+    #swayr
+    Alt+Tab exec env RUST_BACKTRACE=1 \
+    swayr switch-window >> /tmp/swayr.log 2>&1
+
+    #$mod+Delete exec env RUST_BACKTRACE=1 swayr quit-window >> /tmp/swayr.log 2>&1
+
+    #$mod+Tab exec env RUST_BACKTRACE=1 \
+    #swayr switch-to-urgent-or-lru-window >> /tmp/swayr.log 2>&1
+
+    $mod+Tab exec env RUST_BACKTRACE=1 \
+    swayr next-window all-workspaces >> /tmp/swayr.log 2>&2
+
+    #$mod+Prior exec env RUST_BACKTRACE=1 \
+    #swayr prev-window all-workspaces >> /tmp/swayr.log 2>&2
+
+    $mod+Shift+w exec env RUST_BACKTRACE=1 \
+    swayr switch-workspace-or-window >> /tmp/swayr.log 2>&1
+
+    $mod+c exec env RUST_BACKTRACE=1 \
+    swayr execute-swaymsg-command >> /tmp/swayr.log 2>&1
+
+    $mod+Shift+r exec env RUST_BACKTRACE=1 \
+    swayr execute-swayr-command >> /tmp/swayr.log 2>&1
 
     # Switch to workspace
     $mod+1 workspace number 1
@@ -74,16 +97,20 @@ exec {
     '/home/$(whoami)/.config/sway/scripts/xdg-wlr'
     wl-paste -t text --watch clipman store --no-persist
     mako --config /home/me/.config/mako/config
-    lxqt-policykit-agent
+    #lxqt-policykit-agent
     #polkit-kde-agent
     eval $(gnome-keyring-daemon --start)
     playerctld daemon
+    #wmname compiz
+    #yambar
+    #copyq
+    env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1
 }
 
 exec_always {
     #--no-startup-id wlsunset -T 9000 -t 4000 -S 16:30 -s 6:30
     autotiling
-    #gsettings set org.gnome.desktop.interface gtk-theme "Plata-Noir-Compact" 
+    gsettings set org.gnome.desktop.interface gtk-theme "Plata-Noir-Compact" 
     #gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
     "systemctl --user import-environment; systemctl --user start sway-session.target"
     gsettings set org.gnome.desktop.interface cursor-theme $my_cursor
@@ -93,11 +120,13 @@ exec_always {
 
 floating_modifier $mod normal
 
-include /home/me/.config/sway/config.d/*.conf
-include scripts/*.conf
+include {
+    /home/me/.config/sway/config.d/*.conf
+    scripts/*.conf
+}
 
 # User specific
 exec {
-	rclone mount iiserbgdrive:/ /home/me/cloud/gdriveiiserb --daemon
-	rclone mount crypt:/ /home/me/cloud/crypt --daemon
+	#rclone mount iiserbgdrive:/ /home/me/cloud/gdriveiiserb --daemon
+	#rclone mount crypt:/ /home/me/cloud/crypt --daemon
 }

@@ -17,3 +17,4 @@ PS1='$(free_mem) prompt > '
 
 # z - learns frequent cd directories
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+. "$HOME/.cargo/env"

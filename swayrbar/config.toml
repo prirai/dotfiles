@@ -1,0 +1,68 @@
+refresh_interval = 1000
+
+[[modules]]
+name = 'window'
+instance = '0'
+format = ' {title} — {app_name}'
+html_escape = false
+
+[modules.on_click]
+Right = [
+    'kill',
+    '{pid}',
+]
+Left = [
+    'swayr',
+    'switch-workspace-or-window',
+]
+
+[[modules]]
+name = 'sysinfo'
+instance = '0'
+format = '💻  {cpu_usage:{:5.1}}%  {mem_usage:{:5.1}}%  {load_avg_1:{:5.2}}/{load_avg_5:{:5.2}}/{load_avg_15:{:5.2}}'
+html_escape = false
+
+[modules.on_click]
+Left = [
+    'foot',
+    'htop',
+]
+
+[[modules]]
+name = 'battery'
+instance = '0'
+format = ' {state_of_charge:{:5.1}}% ({state_of_health:{:5.1}}%), {state}'
+html_escape = false
+
+[[modules]]
+name = 'pactl'
+instance = '0'
+format = ' {volume:{:3}}%{muted}'
+html_escape = true
+
+[modules.on_click]
+Left = ['pavucontrol-qt']
+Right = [
+    'pactl',
+    'set-sink-mute',
+    '@DEFAULT_SINK@',
+    'toggle',
+]
+WheelDown = [
+    'pactl',
+    'set-sink-volume',
+    '@DEFAULT_SINK@',
+    '-1%',
+]
+WheelUp = [
+    'pactl',
+    'set-sink-volume',
+    '@DEFAULT_SINK@',
+    '+1%',
+]
+
+[[modules]]
+name = 'date'
+instance = '0'
+format = ' %F %R'
+html_escape = false
